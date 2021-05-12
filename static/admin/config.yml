@@ -12,6 +12,23 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "wines"
+    label: "Vino"
+    folder: "src/cms/wines"
+    create: true
+    fields:
+      - {label: "Nome", name: "name", widget: "string"}
+      - {label: "Descrizione", name: "description", widget: "markdown"}
+      - {label: "Immagine principale", name: "featuredimage", widget: image}
+  - name: "vineyards"
+    label: "Vigneto"
+    folder: "src/cms/vineyards"
+    create: true
+    fields:
+      - {label: "Nome", name: "name", widget: "string"}
+      - {label: "Descrizione", name: "description", widget: "markdown"}
+      - {label: "Immagine principale", name: "featuredimage", widget: image}
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
