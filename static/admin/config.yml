@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: master
+  branch: netlify
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'
     update: 'Update {{collection}} “{{slug}}”'
@@ -12,23 +12,6 @@ media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: "wines"
-    label: "Vino"
-    folder: "src/cms/wines"
-    create: true
-    fields:
-      - {label: "Nome", name: "name", widget: "string"}
-      - {label: "Descrizione", name: "description", widget: "markdown"}
-      - {label: "Immagine principale", name: "featuredimage", widget: image}
-  - name: "vineyards"
-    label: "Vigneto"
-    folder: "src/cms/vineyards"
-    create: true
-    fields:
-      - {label: "Nome", name: "name", widget: "string"}
-      - {label: "Descrizione", name: "description", widget: "markdown"}
-      - {label: "Immagine principale", name: "featuredimage", widget: image}
-
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
@@ -43,7 +26,6 @@ collections:
       - {label: "Featured Image", name: "featuredimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
-
   - name: "pages"
     label: "Pages"
     files:
@@ -81,3 +63,50 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
+  - name: "wines"
+    label: "Vino"
+    folder: "src/cms/wines"
+    create: true
+    identifier_field: wineName
+    slug: 
+      - encoding: "ascii"
+        clean_accents: true
+        sanitize_replacement: "_"
+    fields:
+      - label: "Nome del vino"
+        widget: "string"
+        name: "wineName"
+      - label: "Descrizione"
+        name: "wineDescription"
+        widget: "markdown"
+      - label: "Immagine principale"
+        name: "wineFeaturedImage"
+        widget: "image"
+      - label: "Da che vigneto/i viene?"
+        name: "vineyards"
+        widget: "relation"
+        collection: "vineyards"
+        required: false
+        multiple: true
+        valueField: "vineyardName"
+        searchFields: ["vineyardName", "body"]
+        displayFields: ["vineyardName", "body"] 
+  - name: "vineyards"
+    label: "Vigneto"
+    identifier_field: vineyardName
+    slug: 
+      - encoding: "ascii"
+        clean_accents: true
+        sanitize_replacement: "_"
+    folder: "src/cms/vineyards"
+    create: true
+    fields:
+      - label: "Nome vigneto"
+        widget: "string"
+        name: "vineyardName"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Immagine principale"
+        name: "vineyardFeaturedImage"
+        widget: "image"
