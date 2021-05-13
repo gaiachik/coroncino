@@ -11,6 +11,11 @@ backend:
 media_folder: static/img
 public_folder: /img
 
+slug: 
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "_"
+
 collections:
   - name: "blog"
     label: "Blog"
@@ -68,10 +73,7 @@ collections:
     folder: "src/cms/wines"
     create: true
     identifier_field: wineName
-    slug: 
-      - encoding: "ascii"
-        clean_accents: true
-        sanitize_replacement: "_"
+    slug: "{{wineName}}"
     fields:
       - label: "Nome del vino"
         widget: "string"
@@ -94,10 +96,7 @@ collections:
   - name: "vineyards"
     label: "Vigneto"
     identifier_field: vineyardName
-    slug: 
-      - encoding: "ascii"
-        clean_accents: true
-        sanitize_replacement: "_"
+    slug: "{{vineyardName}}"
     folder: "src/cms/vineyards"
     create: true
     fields:
