@@ -36,7 +36,7 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
   - name: "pages"
-    label: "Pages"
+    label: "Pagine"
     files:
       - file: "src/pages/index.md"
         label: "Landing Page"
@@ -72,6 +72,13 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
+      - file: "src/pages/wines/index.md"
+        label: "Pagina Vini"
+        name: "wines"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-page"}
+          - {label: Titolo, name: title, widget: string}
+          - {label: Descrizione, name: description, widget: string}
   - name: "wines"
     label: "Vino"
     folder: "src/cms/wines"
