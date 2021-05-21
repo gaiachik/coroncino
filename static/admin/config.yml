@@ -89,6 +89,7 @@ collections:
         name: "mainImage"
         widget: "image"
       - label: "Foto"
+        required: false
         name: "images"
         widget: "list"
         summary: '{{fields.image}}'
@@ -129,6 +130,7 @@ collections:
         name: "mainImage"
         widget: "image"
       - label: "Foto"
+        required: false
         name: "images"
         widget: "list"
         summary: '{{fields.image}}'
@@ -152,6 +154,7 @@ collections:
         name: "body"
         widget: "markdown"
       - label: "Foto"
+        required: false
         name: "images"
         widget: "list"
         summary: '{{fields.image}}'
