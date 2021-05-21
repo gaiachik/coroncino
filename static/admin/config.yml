@@ -8,6 +8,8 @@ backend:
     uploadMedia: '[skip ci] Upload “{{path}}”'
     deleteMedia: '[skip ci] Delete “{{path}}”'
 
+site_url: https://coroncino.netlify.app
+
 media_folder: static/img
 public_folder: /img
 
@@ -28,7 +30,7 @@ collections:
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Featured Post", name: "featuredpost", widget: "boolean"}
-      - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Featured Image", name: "mainimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
   - name: "pages"
@@ -68,9 +70,9 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
-  - name: "wines"
+  - name: "vini"
     label: "Vino"
-    folder: "src/cms/wines"
+    folder: "src/cms/vini"
     create: true
     identifier_field: wineName
     slug: "{{wineName}}"
@@ -82,30 +84,72 @@ collections:
         name: "wineDescription"
         widget: "markdown"
       - label: "Immagine principale"
-        name: "wineFeaturedImage"
+        name: "mainImage"
         widget: "image"
       - label: "Da che vigneto/i viene?"
-        name: "vineyards"
+        name: "vigneti"
         widget: "relation"
-        collection: "vineyards"
+        collection: "vigneti"
         required: false
         multiple: true
-        valueField: "vineyardName"
-        searchFields: ["vineyardName", "body"]
-        displayFields: ["vineyardName", "body"] 
-  - name: "vineyards"
+        valueField: "nomeVigneto"
+        searchFields: ["nomeVigneto", "body"]
+        displayFields: ["nomeVigneto", "body"] 
+      - label: "Ha vinto premi? Aggiungili qui"
+        name: "premi"
+        widget: "relation"
+        collection: "premi"
+        required: false
+        multiple: true
+        valueField: "nomePremio"
+        searchFields: ["nomePremio", "annoPremio"]
+        displayFields: ["nomePremio", "annoPremio"] 
+
+  - name: "vigneti"
     label: "Vigneto"
-    identifier_field: vineyardName
-    slug: "{{vineyardName}}"
-    folder: "src/cms/vineyards"
+    identifier_field: nomeVigneto
+    slug: "{{nomeVigneto}}"
+    folder: "src/cms/vigneti"
     create: true
     fields:
       - label: "Nome vigneto"
         widget: "string"
-        name: "vineyardName"
+        name: "nomeVigneto"
       - label: "Descrizione"
         name: "body"
         widget: "markdown"
       - label: "Immagine principale"
-        name: "vineyardFeaturedImage"
+        name: "mainImage"
         widget: "image"
+
+  - name: "premi"
+    label: "Premio"
+    identifier_field: nomePremio
+    slug: "{{nomePremio}}-{{annoPremio}}"
+    folder: "src/cms/vigneti"
+    create: true
+    sortable_fields: ['nomePremio', 'annoPremio']
+    fields:
+      - label: "Nome del premio"
+        widget: "string"
+        name: "nomePremio"
+      - label: "Anno del premio"
+        widget: "string"
+        name: "annoPremio"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Immagine principale"
+        name: "mainImage"
+        widget: "image"
+      - label: "Quale vino ha vinto? Aggiungi qui"
+        name: "vino"
+        widget: "relation"
+        collection: "vini"
+        required: true
+        valueField: "nomeVino"
+        searchFields: ["nomeVino", "annoVino"]
+        displayFields: ["nomeVino", "annoVino"] 
+      - label: "Annata del vino che ha vinto"
+        widget: "string"
+        name: "annoVinoPremiato"
