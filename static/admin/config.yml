@@ -1,3 +1,5 @@
+locale: 'it'
+
 backend:
   name: git-gateway
   branch: netlify
@@ -70,9 +72,9 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
-  - name: "vini"
+  - name: "wines"
     label: "Vino"
-    folder: "src/cms/vini"
+    folder: "src/cms/wines"
     create: true
     identifier_field: wineName
     slug: "{{wineName}}"
@@ -86,70 +88,82 @@ collections:
       - label: "Immagine principale"
         name: "mainImage"
         widget: "image"
+      - label: "Foto"
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
       - label: "Da che vigneto/i viene?"
-        name: "vigneti"
+        name: "vineyards"
         widget: "relation"
-        collection: "vigneti"
+        collection: "vineyards"
         required: false
         multiple: true
-        valueField: "nomeVigneto"
-        searchFields: ["nomeVigneto", "body"]
-        displayFields: ["nomeVigneto", "body"] 
-      - label: "Ha vinto premi? Aggiungili qui"
-        name: "premi"
-        widget: "relation"
-        collection: "premi"
-        required: false
-        multiple: true
-        valueField: "nomePremio"
-        searchFields: ["nomePremio", "annoPremio"]
-        displayFields: ["nomePremio", "annoPremio"] 
+        valueField: "vineyard"
+        searchFields: ["vineyard", "body"]
+        displayFields: ["vineyard", "body"] 
+      # - label: "Ha vinto premi? Aggiungili qui"
+      #   name: "prizes"
+      #   widget: "relation"
+      #   collection: "prizes"
+      #   required: false
+      #   multiple: true
+      #   valueField: "prize"
+      #   searchFields: ["prize", "annoPremio"]
+      #   displayFields: ["prize", "annoPremio"] 
 
-  - name: "vigneti"
+  - name: "vineyards"
     label: "Vigneto"
-    identifier_field: nomeVigneto
-    slug: "{{nomeVigneto}}"
-    folder: "src/cms/vigneti"
+    identifier_field: vineyard
+    slug: "{{vineyard}}"
+    folder: "src/cms/vineyards"
     create: true
     fields:
       - label: "Nome vigneto"
         widget: "string"
-        name: "nomeVigneto"
+        name: "vineyard"
       - label: "Descrizione"
         name: "body"
         widget: "markdown"
       - label: "Immagine principale"
         name: "mainImage"
         widget: "image"
+      - label: "Foto"
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
 
-  - name: "premi"
+  - name: "prizes"
     label: "Premio"
-    identifier_field: nomePremio
-    slug: "{{nomePremio}}-{{annoPremio}}"
-    folder: "src/cms/vigneti"
+    identifier_field: prize
+    slug: "{{prize}}-{{annoPremio}}"
+    folder: "src/cms/vineyards"
     create: true
-    sortable_fields: ['nomePremio', 'annoPremio']
+    sortable_fields: ['prize', 'annoPremio']
     fields:
       - label: "Nome del premio"
         widget: "string"
-        name: "nomePremio"
+        name: "prize"
       - label: "Anno del premio"
         widget: "string"
         name: "annoPremio"
       - label: "Descrizione"
         name: "body"
         widget: "markdown"
-      - label: "Immagine principale"
-        name: "mainImage"
-        widget: "image"
-      - label: "Quale vino ha vinto? Aggiungi qui"
-        name: "vino"
+      - label: "Foto"
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
+      - label: "Quale vino ha vinto il premio?"
+        name: "wine"
         widget: "relation"
-        collection: "vini"
+        collection: "wines"
         required: true
-        valueField: "nomeVino"
-        searchFields: ["nomeVino", "annoVino"]
-        displayFields: ["nomeVino", "annoVino"] 
-      - label: "Annata del vino che ha vinto"
+        valueField: "wineName"
+        searchFields: ["wineName"]
+        displayFields: ["wineName"] 
+      - label: "Quale annata ha vinto?"
         widget: "string"
-        name: "annoVinoPremiato"
+        name: "annataVicente"
