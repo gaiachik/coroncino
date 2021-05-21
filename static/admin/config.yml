@@ -85,9 +85,6 @@ collections:
       - label: "Descrizione"
         name: "wineDescription"
         widget: "markdown"
-      - label: "Immagine principale"
-        name: "mainImage"
-        widget: "image"
       - label: "Foto"
         required: false
         name: "images"
@@ -126,9 +123,6 @@ collections:
       - label: "Descrizione"
         name: "body"
         widget: "markdown"
-      - label: "Immagine principale"
-        name: "mainImage"
-        widget: "image"
       - label: "Foto"
         required: false
         name: "images"
