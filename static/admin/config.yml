@@ -140,7 +140,7 @@ collections:
     label: "Premio"
     identifier_field: prize
     slug: "{{prize}}-{{annoPremio}}"
-    folder: "src/cms/vineyards"
+    folder: "src/cms/prizes"
     create: true
     sortable_fields: ['prize', 'annoPremio']
     fields:
