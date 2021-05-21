@@ -5,4 +5,5 @@ wineDescription: foto presa da qui
 mainImage: /img/coroncino.jpeg
 vigneti:
   - Spescia
+  - coroncino
 ---
