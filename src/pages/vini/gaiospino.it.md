@@ -1,6 +1,8 @@
 ---
 wineName: Gaiospino
-wineDescription: >-
+templateKey: wine-page
+lang: it
+description: >-
   Gaiospino, vino divino
 
 

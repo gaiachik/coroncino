@@ -1,6 +1,7 @@
 ---
-templateKey: 'wines-page'
+templateKey: 'wine-list-page'
 title: I nostri vini
+lang: it
 description: I nostri vini devono il loro sapore al terreno e all'esposizione al
   sole, non ad aggiunte chimiche - noi non concimiamo i nostri terreni dal 1993
   e non li abbiamo mai irrigati.  In piú tutti i nostri vini hanno una

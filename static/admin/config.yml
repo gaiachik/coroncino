@@ -35,16 +35,16 @@ collections:
       - {label: "Featured Image", name: "mainimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
-  - name: "pages"
-    label: "Pagine (inglese)"
-    files:
-      - file: "src/pages/wines/index.en.md"
-        label: "Pagina Vini Inglese"
-        name: "wines"
-        fields:
-          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wines-page"}
-          - {label: Titolo, name: title, widget: string}
-          - {label: Descrizione, name: description, widget: string}
+  # - name: "pages"
+  #   label: "Pagine (inglese)"
+  #   files:
+  #     - file: "src/pages/wines/index.en.md"
+  #       label: "Pagina Vini Inglese"
+  #       name: "wines"
+  #       fields:
+  #         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
+  #         - {label: Titolo, name: title, widget: string}
+  #         - {label: Descrizione, name: description, widget: string}
   - name: "pagine"
     label: "Pagine"
     files:
@@ -82,18 +82,18 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
-      - file: "src/pages/vini/index.it.md"
-        label: "Pagina Vini"
-        name: "wines"
-        fields:
-          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wines-page"}
-          - {label: Titolo, name: title, widget: string}
-          - {label: Descrizione, name: description, widget: string}
+      # - file: "src/pages/vini/index.it.md"
+      #   label: "Pagina Vini"
+      #   name: "wines"
+      #   fields:
+      #     - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
+      #     - {label: Titolo, name: title, widget: string}
+      #     - {label: Descrizione, name: description, widget: string}
   - name: "vini"
     label: "Vino"
     extension: it.md
     format: frontmatter
-    folder: "src/cms/wines"
+    folder: "src/pages/vini"
     create: true
     identifier_field: wineName
     slug: "{{wineName}}"
@@ -101,8 +101,16 @@ collections:
       - label: "Nome del vino"
         widget: "string"
         name: "wineName"
+      - label: "Template Key"
+        name: "templateKey"
+        widget: "hidden"
+        default: "wine-page"
+      - label: "Lang"
+        name: "lang"
+        widget: "hidden"
+        default: "it"
       - label: "Descrizione"
-        name: "wineDescription"
+        name: "description"
         widget: "markdown"
       - label: "Foto"
         required: false
@@ -132,7 +140,7 @@ collections:
     label: "Vino (inglese)"
     extension: en.md
     format: frontmatter
-    folder: "src/cms/wines/en"
+    folder: "src/pages/wines/en"
     create: true
     identifier_field: wineName
     slug: "{{wineName}}"
@@ -140,8 +148,16 @@ collections:
       - label: "Nome del vino"
         widget: "string"
         name: "wineName"
+      - label: "Template Key"
+        name: "templateKey"
+        widget: "hidden"
+      - label: "Lang"
+        name: "lang"
+        widget: "hidden"
+        default: "it"
+        default: "wine-page"
       - label: "Descrizione"
-        name: "wineDescription"
+        name: "description"
         widget: "markdown"
       - label: "Foto"
         required: false

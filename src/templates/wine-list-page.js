@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
+import WinesList from '../components/WinesList'
 
-export const WinesPageTemplate = ({
+export const WinesListTemplate = ({
   title,
   description,
 }) => (
@@ -28,6 +29,7 @@ export const WinesPageTemplate = ({
         {title}
       </h2>
     </div>
+    <WinesList />
     <section className="section section--gradient">
       <div className="container">
         <div className="section">
@@ -42,7 +44,7 @@ export const WinesPageTemplate = ({
   </div>
 )
 
-WinesPageTemplate.propTypes = {
+WinesListTemplate.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   
@@ -53,7 +55,7 @@ const ProductPage = ({ data }) => {
 
   return (
     <Layout>
-      <WinesPageTemplate
+      <WinesListTemplate
         title={frontmatter.title}
         description={frontmatter.description}
       />
@@ -72,7 +74,7 @@ ProductPage.propTypes = {
 export default ProductPage
 
 export const winesPageQuery = graphql`
-  query WinesPage($id: String!) {
+  query WinesListQuery($id: String!) {
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
