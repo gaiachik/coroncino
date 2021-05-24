@@ -10,8 +10,9 @@ module.exports = {
       resolve: "gatsby-plugin-i18n",
       options: {
         langKeyDefault: "it",
+        langKeyForNull: "it",
         useLangKeyLayout: false,
-        prefixDefault: false
+        prefixDefault: false,
       },
     },
     {

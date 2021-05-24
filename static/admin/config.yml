@@ -35,16 +35,12 @@ collections:
       - {label: "Featured Image", name: "mainimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
-  # - name: "pages"
-  #   label: "Pagine (inglese)"
-  #   files:
-  #     - file: "src/pages/wines/index.en.md"
-  #       label: "Pagina Vini Inglese"
-  #       name: "wines"
-  #       fields:
-  #         - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
-  #         - {label: Titolo, name: title, widget: string}
-  #         - {label: Descrizione, name: description, widget: string}
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>      Pagine italiane          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
   - name: "pagine"
     label: "Pagine"
     files:
@@ -82,13 +78,14 @@ collections:
           - {label: Testimonials, name: testimonials, widget: list, fields: [{label: Quote, name: quote, widget: string}, {label: Author, name: author, widget: string}]}
           - {label: Full_image, name: full_image, widget: image}
           - {label: Pricing, name: pricing, widget: object, fields: [{label: Heading, name: heading, widget: string}, {label: Description, name: description, widget: string}, {label: Plans, name: plans, widget: list, fields: [{label: Plan, name: plan, widget: string}, {label: Price, name: price, widget: string}, {label: Description, name: description, widget: string}, {label: Items, name: items, widget: list}]}]}
-      # - file: "src/pages/vini/index.it.md"
-      #   label: "Pagina Vini"
-      #   name: "wines"
-      #   fields:
-      #     - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
-      #     - {label: Titolo, name: title, widget: string}
-      #     - {label: Descrizione, name: description, widget: string}
+      - file: "src/pages/vini/index.it.md"
+        label: "Pagina Lista Vini"
+        name: "wines-list-page"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
+          - {label: "Lang", name: "lang", widget: "hidden", default: "it"}
+          - {label: Titolo, name: title, widget: string}
+          - {label: Descrizione, name: description, widget: string}
   - name: "vini"
     label: "Vino"
     extension: it.md
@@ -136,6 +133,155 @@ collections:
       #   valueField: "prize"
       #   searchFields: ["prize", "annoPremio"]
       #   displayFields: ["prize", "annoPremio"] 
+  
+  - name: "vigneti"
+    label: "Vigneto"
+    extension: it.md
+    format: frontmatter
+    identifier_field: vineyard
+    slug: "{{vineyard}}"
+    folder: "src/cms/vineyards"
+    create: true
+    fields:
+      - label: "Nome vigneto"
+        widget: "string"
+        name: "vineyard"
+      - label: "lang"
+        name: "lang"
+        widget: "hidden"
+        default: "it"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Foto"
+        required: false
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
+
+
+  - name: "premi"
+    label: "Premi"
+    extension: it.md
+    format: frontmatter
+    identifier_field: prize
+    slug: "{{prize}}-{{annoPremio}}"
+    folder: "src/cms/prizes"
+    create: true
+    sortable_fields: ['prize', 'annoPremio']
+    fields:
+      - label: "Nome del premio"
+        widget: "string"
+        name: "prize"
+      - label: "lang"
+        name: "lang"
+        widget: "hidden"
+        default: "it"
+      - label: "Anno del premio"
+        widget: "string"
+        name: "annoPremio"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Foto"
+        required: false
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
+      - label: "Quale vino ha vinto il premio?"
+        name: "wine"
+        widget: "relation"
+        collection: "vini"
+        required: true
+        valueField: "wineName"
+        searchFields: ["wineName"]
+        displayFields: ["wineName"] 
+      - label: "Quale annata ha vinto?"
+        widget: "string"
+        name: "annataVicente"
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>      Pagine inglesi          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  - name: "pages"
+    label: "Pagine (inglese)"
+    files:
+      - file: "src/pages/wines/index.en.md"
+        label: "Pagina Vini Inglese"
+        name: "wines-list-page"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "wine-list-page"}
+          - {label: "Lang", name: "lang", widget: "hidden", default: "en"}
+          - {label: Titolo, name: title, widget: string}
+          - {label: Descrizione, name: description, widget: string}
+  - name: "prizes"
+    label: "Premi (inglese)"
+    extension: en.md
+    format: frontmatter
+    identifier_field: prize
+    slug: "{{prize}}-{{annoPremio}}"
+    folder: "src/cms/prizes/en"
+    create: true
+    sortable_fields: ['prize', 'annoPremio']
+    fields:
+      - label: "Nome del premio"
+        widget: "string"
+        name: "prize"
+      - label: "lang"
+        name: "lang"
+        widget: "hidden"
+        default: "en"
+      - label: "Anno del premio"
+        widget: "string"
+        name: "annoPremio"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Foto"
+        required: false
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
+      - label: "Quale vino ha vinto il premio?"
+        name: "wine"
+        widget: "relation"
+        collection: "wines"
+        required: true
+        valueField: "wineName"
+        searchFields: ["wineName"]
+        displayFields: ["wineName"] 
+      - label: "Quale annata ha vinto?"
+        widget: "string"
+        name: "annataVicente"
+  - name: "vineyards"
+    label: "Vigneto"
+    extension: en.md
+    format: frontmatter
+    identifier_field: vineyard
+    slug: "{{vineyard}}"
+    folder: "src/cms/vineyards/en"
+    create: true
+    fields:
+      - label: "Nome vigneto"
+        widget: "string"
+        name: "vineyard"
+      - label: "lang"
+        name: "lang"
+        widget: "hidden"
+        default: "en"
+      - label: "Descrizione"
+        name: "body"
+        widget: "markdown"
+      - label: "Foto"
+        required: false
+        name: "images"
+        widget: "list"
+        summary: '{{fields.image}}'
+        field: {label: Foto, name: image, widget: image}
   - name: "wines"
     label: "Vino (inglese)"
     extension: en.md
@@ -183,136 +329,3 @@ collections:
       #   valueField: "prize"
       #   searchFields: ["prize", "annoPremio"]
       #   displayFields: ["prize", "annoPremio"] 
-
-  - name: "vigneti"
-    label: "Vigneto"
-    extension: it.md
-    format: frontmatter
-    identifier_field: vineyard
-    slug: "{{vineyard}}"
-    folder: "src/cms/vineyards"
-    create: true
-    fields:
-      - label: "Nome vigneto"
-        widget: "string"
-        name: "vineyard"
-      - label: "lang"
-        name: "lang"
-        widget: "hidden"
-        default: "it"
-      - label: "Descrizione"
-        name: "body"
-        widget: "markdown"
-      - label: "Foto"
-        required: false
-        name: "images"
-        widget: "list"
-        summary: '{{fields.image}}'
-        field: {label: Foto, name: image, widget: image}
-  - name: "vineyards"
-    label: "Vigneto"
-    extension: en.md
-    format: frontmatter
-    identifier_field: vineyard
-    slug: "{{vineyard}}"
-    folder: "src/cms/vineyards/en"
-    create: true
-    fields:
-      - label: "Nome vigneto"
-        widget: "string"
-        name: "vineyard"
-      - label: "lang"
-        name: "lang"
-        widget: "hidden"
-        default: "en"
-      - label: "Descrizione"
-        name: "body"
-        widget: "markdown"
-      - label: "Foto"
-        required: false
-        name: "images"
-        widget: "list"
-        summary: '{{fields.image}}'
-        field: {label: Foto, name: image, widget: image}
-
-  - name: "premi"
-    label: "Premi"
-    extension: it.md
-    format: frontmatter
-    identifier_field: prize
-    slug: "{{prize}}-{{annoPremio}}"
-    folder: "src/cms/prizes"
-    create: true
-    sortable_fields: ['prize', 'annoPremio']
-    fields:
-      - label: "Nome del premio"
-        widget: "string"
-        name: "prize"
-      - label: "lang"
-        name: "lang"
-        widget: "hidden"
-        default: "it"
-      - label: "Anno del premio"
-        widget: "string"
-        name: "annoPremio"
-      - label: "Descrizione"
-        name: "body"
-        widget: "markdown"
-      - label: "Foto"
-        required: false
-        name: "images"
-        widget: "list"
-        summary: '{{fields.image}}'
-        field: {label: Foto, name: image, widget: image}
-      - label: "Quale vino ha vinto il premio?"
-        name: "wine"
-        widget: "relation"
-        collection: "vini"
-        required: true
-        valueField: "wineName"
-        searchFields: ["wineName"]
-        displayFields: ["wineName"] 
-      - label: "Quale annata ha vinto?"
-        widget: "string"
-        name: "annataVicente"
-
-  - name: "prizes"
-    label: "Premi (inglese)"
-    extension: en.md
-    format: frontmatter
-    identifier_field: prize
-    slug: "{{prize}}-{{annoPremio}}"
-    folder: "src/cms/prizes/en"
-    create: true
-    sortable_fields: ['prize', 'annoPremio']
-    fields:
-      - label: "Nome del premio"
-        widget: "string"
-        name: "prize"
-      - label: "lang"
-        name: "lang"
-        widget: "hidden"
-        default: "en"
-      - label: "Anno del premio"
-        widget: "string"
-        name: "annoPremio"
-      - label: "Descrizione"
-        name: "body"
-        widget: "markdown"
-      - label: "Foto"
-        required: false
-        name: "images"
-        widget: "list"
-        summary: '{{fields.image}}'
-        field: {label: Foto, name: image, widget: image}
-      - label: "Quale vino ha vinto il premio?"
-        name: "wine"
-        widget: "relation"
-        collection: "wines"
-        required: true
-        valueField: "wineName"
-        searchFields: ["wineName"]
-        displayFields: ["wineName"] 
-      - label: "Quale annata ha vinto?"
-        widget: "string"
-        name: "annataVicente"

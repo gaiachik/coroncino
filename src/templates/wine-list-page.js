@@ -7,8 +7,11 @@ import WinesList from '../components/WinesList'
 export const WinesListTemplate = ({
   title,
   description,
+  lang
 }) => (
+
   <div className="content">
+  {console.log(`🦄`, lang)}
     <div
     //   className="full-width-image-container margin-top-0"
     //   style={{
@@ -29,7 +32,7 @@ export const WinesListTemplate = ({
         {title}
       </h2>
     </div>
-    <WinesList />
+    <WinesList lang={lang} />
     <section className="section section--gradient">
       <div className="container">
         <div className="section">
@@ -50,20 +53,21 @@ WinesListTemplate.propTypes = {
   
 }
 
-const ProductPage = ({ data }) => {
+const WinesListPage = ({ data }) => {
   const { frontmatter } = data.markdownRemark
-
+console.log(`📲`, frontmatter.lang)
   return (
     <Layout>
       <WinesListTemplate
         title={frontmatter.title}
         description={frontmatter.description}
+        lang={frontmatter.lang}
       />
     </Layout>
   )
 }
 
-ProductPage.propTypes = {
+WinesListPage.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.shape({
       frontmatter: PropTypes.object,
@@ -71,14 +75,15 @@ ProductPage.propTypes = {
   }),
 }
 
-export default ProductPage
+export default WinesListPage
 
 export const winesPageQuery = graphql`
-  query WinesListQuery($id: String!) {
+  query WinesListPageQuery($id: String!) {
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         description
+        lang
       }
     }
   }

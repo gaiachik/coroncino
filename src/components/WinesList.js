@@ -1,48 +1,10 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, graphql, StaticQuery } from 'gatsby'
+import { useStaticQuery, Link, graphql } from 'gatsby'
 
-class WinesList extends React.Component {
-  render() {
-    const { data } = this.props
-    const { edges: wines } = data.allMarkdownRemark
-
-    return (
-      <div className="columns is-multiline">
-        <ul>
-          {wines &&
-            wines.map(({ node: wine }) => (
-              <li>
-                <h2>
-                  <Link
-                    to={wine.fields.slug}
-                  >
-                    {wine.frontmatter.wineName}
-                  </Link>
-                  {wine.frontmatter.description && (
-                    <p>description: {wine.frontmatter.description}</p>
-                  )}
-                </h2>
-              </li>
-            ))}
-        </ul>
-      </div>
-    );
-  }
-}
-
-WinesList.propTypes = {
-  data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  }),
-}
-
-export default () => (
-  <StaticQuery
-    query={graphql`
+export default function WinesList(props) {
+  const data = useStaticQuery(graphql`
       query WinesList {
         allMarkdownRemark(
             filter: {frontmatter: {templateKey: {eq: "wine-page"}}}
@@ -53,6 +15,7 @@ export default () => (
                         slug
                     }
                     frontmatter {
+                        lang
                         templateKey
                         wineName
                         description
@@ -61,8 +24,40 @@ export default () => (
             }
         }
     }
+  `)
+  const { edges: wines } = data.allMarkdownRemark
 
-    `}
-    render={(data, count) => <WinesList data={data} count={count} />}
-  />
-)
+  return (
+    <div className="columns is-multiline">
+        <ul>
+          {wines &&
+            wines
+              .filter(
+                ({ node: wine }) => wine.frontmatter.lang === props.lang
+              )
+              .map(({ node: wine }) => (
+                <li>
+                  <h2>
+                    <Link to={wine.fields.slug}>
+                      {wine.frontmatter.wineName}
+                    </Link>
+                    {wine.frontmatter.description && (
+                      <p>description: {wine.frontmatter.description}</p>
+                    )}
+                  </h2>
+                </li>
+              ))}
+        </ul>
+      </div>
+  )
+}
+
+
+WinesList.propTypes = {
+  lang: PropTypes.string,
+  data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.array,
+    }),
+  }),
+}
